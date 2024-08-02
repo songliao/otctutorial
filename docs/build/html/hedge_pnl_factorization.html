@@ -258,6 +258,13 @@
 如果卖方long Gamma, 那么挂钩标的实际波动越大，卖方在波动率上的盈利就越多。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p><strong>Delta Decay盈亏</strong></p>
+<div class="math notranslate nohighlight">
+\[- C^S \Delta S\Delta t\]</div>
+</div>
+<p>这一项，按日频维度对齐Delta 敞口的动态对冲，也是无法消除的。好在一般这一项数量级相对其他项而言都是较微小的。不过在某些场景下，该项可能会带来重大不利影响，需要保持高度关注。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p><strong>资金无风险收益盈亏</strong></p>
 <div class="math notranslate nohighlight">
 \[(M - V)r\Delta t\]</div>
