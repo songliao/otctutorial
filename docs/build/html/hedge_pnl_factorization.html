@@ -216,10 +216,11 @@
 + \frac{1}{2}\Gamma^S S^2((\frac{\Delta S}{S})^2 - \sigma^2\Delta t) + C^S\Delta S\Delta t\]</div>
 <p>而这个时间段里，对冲方，通过持有股指期货合约的方向性收益，相关的资金成本以及资金收益合计为</p>
 <div class="math notranslate nohighlight" id="equation-eq-7">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eq-7" title="Link to this equation"></a></span>\[\sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   - (\sum_i^N \Delta_i^A F_i) r\Delta t\]</div>
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-7" title="Link to this equation"></a></span>\[\sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   - L^A (\sum_i^N \Delta_i^A F_i) r\Delta t\]</div>
+<p>其中，<span class="math notranslate nohighlight">\(L^A\)</span> 表示的是，当前持仓股指期货的实际保证金比例。</p>
 <p>那么这一时间段——一个交易日——从上一交易日的日终到本交易日终的对冲交易盈亏为</p>
 <div class="math notranslate nohighlight">
-\[\textbf{P&amp;L} = \sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   -  (\sum_i^N \Delta_i^A F_i) r\Delta t -  \Delta V\]</div>
+\[\textbf{P&amp;L} = \sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   -  L^A (\sum_i^N \Delta_i^A F_i) r\Delta t -  \Delta V\]</div>
 <p>接下来，我们就可以根据各分项的金融含义对 P&amp;L 进行拆分。</p>
 </section>
 <section id="id8">
@@ -273,9 +274,9 @@
 <p class="admonition-title">Note</p>
 <p><strong>持仓资金成本盈亏</strong></p>
 <div class="math notranslate nohighlight">
-\[(- \sum_i^N \Delta_i^A F_i + \Delta^S S) r\Delta t\]</div>
+\[(-L^A \sum_i^N \Delta_i^A F_i +L^S \Delta^S S) r\Delta t\]</div>
 </div>
-<p>指的是实际持仓占资成本与理论占资成本之差。</p>
+<p>其中 <span class="math notranslate nohighlight">\(L^S\)</span> 表示的是理论对冲持仓的保证金比例。上式表示的是实际持仓占资成本与理论占资成本之差。</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id9" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>

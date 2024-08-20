@@ -145,13 +145,15 @@
 而这个时间段里，对冲方，通过持有股指期货合约的方向性收益，相关的资金成本以及资金收益合计为
 
 .. math:: 
-    \sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   - (\sum_i^N \Delta_i^A F_i) r\Delta t
+    \sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   - L^A (\sum_i^N \Delta_i^A F_i) r\Delta t
     :label: eq:7
+
+其中，:math:`L^A` 表示的是，当前持仓股指期货的实际保证金比例。
 
 那么这一时间段——一个交易日——从上一交易日的日终到本交易日终的对冲交易盈亏为
 
 .. math:: 
-    \textbf{P&L} = \sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   -  (\sum_i^N \Delta_i^A F_i) r\Delta t -  \Delta V
+    \textbf{P&L} = \sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   -  L^A (\sum_i^N \Delta_i^A F_i) r\Delta t -  \Delta V
 
 接下来，我们就可以根据各分项的金融含义对 P&L 进行拆分。
 
@@ -212,9 +214,9 @@
     **持仓资金成本盈亏**
 
     .. math::
-        (- \sum_i^N \Delta_i^A F_i + \Delta^S S) r\Delta t
+        (-L^A \sum_i^N \Delta_i^A F_i +L^S \Delta^S S) r\Delta t
 
-指的是实际持仓占资成本与理论占资成本之差。
+其中 :math:`L^S` 表示的是理论对冲持仓的保证金比例。上式表示的是实际持仓占资成本与理论占资成本之差。
 
 .. [1] 简化起见，:math:`r, q, \sigma` 均设置为常数。
 .. [2] 详见我方中证专题研究文章关于股指期货对冲指数期权的BSM偏微分方程一节中的推导。
