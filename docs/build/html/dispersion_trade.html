@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>分散度（相关性）交易 &mdash; Quantitative Development Tutorial  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="_static/fonts.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx-design.min.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/design-tabs.js?v=f930bc37"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="场外衍生品业务" href="otc_business.html" />
+    <link rel="prev" title="对冲交易归因分析" href="hedge_pnl_factorization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Quantitative Development Tutorial
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="otc_theory.html">金融衍生品理论基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quant_dev.html">量化建模与开发实战</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quant_trading.html">对冲交易与风险控制</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hedge_pnl_factorization.html">对冲交易归因分析</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">分散度（相关性）交易</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">指数与成分股波动率之间的关系</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">指数期权盯市盈亏分析</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="otc_business.html">场外衍生品业务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考资料</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Quantitative Development Tutorial</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="quant_trading.html">对冲交易与风险控制</a></li>
+      <li class="breadcrumb-item active">分散度（相关性）交易</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dispersion_trade.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>分散度（相关性）交易<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>分散度交易的基本形式为</p>
+<p>1，买指数波动率卖成分股个股波动率，或者</p>
+<p>2，卖指数波动率买成分股个股波动率。</p>
+<p>通过维持投资组合在方向敞口上的中性（delta-neutral），交易指数与成分股波动率之间的差异来获得收益。</p>
+<section id="id2">
+<h2>指数与成分股波动率之间的关系<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>我们用 <span class="math notranslate nohighlight">\(I\)</span> 表示指数，<span class="math notranslate nohighlight">\(S_i\)</span> 表示成分股，<span class="math notranslate nohighlight">\(w_i\)</span> 是指数中该成分股的 <strong>份额</strong> 占比，</p>
+<div class="math notranslate nohighlight" id="equation-eq-8">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-8" title="Link to this equation"></a></span>\[I = \sum_i^N w_i S_i\]</div>
+<p>那么个股在指数中的 <strong>市值</strong> 权重，即</p>
+<div class="math notranslate nohighlight" id="equation-eq-9">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-9" title="Link to this equation"></a></span>\[p_i = \frac{w_iS_i}{I}\]</div>
+<p>那么我们有</p>
+<div class="math notranslate nohighlight" id="equation-eq-10">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-10" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
+\frac{dI}{I} &amp;= \sum_i^N \frac{w_i dS_i}{I}\\
+&amp;= \sum_i^N \frac{w_i S_i}{I} \frac{dS_i}{S_i}\\
+&amp;= \sum_i^N p_i \frac{dS_i}{S_i}
+\end{aligned}\end{split}\]</div>
+<p>所以可以得到指数波动率与个股波动率之间的关系为</p>
+<div class="math notranslate nohighlight" id="equation-eq-11">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq-11" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
+\sigma_x^2 &amp;= \sum_{i,j}p_i p_j \sigma_i \sigma_j \rho_{i,j}\\
+&amp;= \sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}
+\end{aligned}\end{split}\]</div>
+<p>定义平均相关系数为</p>
+<div class="math notranslate nohighlight" id="equation-eq-12">
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-12" title="Link to this equation"></a></span>\[\bar{\rho} = \frac{\sigma_x^2 - \sum_{i} p_i^2 \sigma_i^2}{\sum_{i\neq j} p_i p_j \sigma_i \sigma_j}\]</div>
+</section>
+<section id="id3">
+<h2>指数期权盯市盈亏分析<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>回忆BSM PDE，</p>
+<div class="math notranslate nohighlight" id="equation-eq-13">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-13" title="Link to this equation"></a></span>\[\frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2S^2\frac{\partial^2 V}{\partial S^2} + (r- q)S\frac{\partial V}{\partial S} - rV = 0\]</div>
+<p>在本节以下的讨论中，简单起见，我们假定 <span class="math notranslate nohighlight">\(r = q = 0\)</span>， 并设 <span class="math notranslate nohighlight">\(\Theta = \frac{\partial V}{\partial t}\Delta t\)</span>, 表示期权在 <span class="math notranslate nohighlight">\(\Delta t\)</span> 时间里的价值变化。根据 <a class="reference internal" href="#equation-eq-13">(6)</a> 式，</p>
+<div class="math notranslate nohighlight" id="equation-eq-14">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-14" title="Link to this equation"></a></span>\[\frac{\partial^2 V}{\partial S^2}= -2\Theta\frac{1}{\sigma^2S^2\Delta t}\]</div>
+<p>期权持有者在 <span class="math notranslate nohighlight">\(\Delta t\)</span> 时间的持仓盈亏为</p>
+<div class="math notranslate nohighlight" id="equation-eq-15">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-15" title="Link to this equation"></a></span>\[\Delta V \approx \frac{\partial V}{\partial S}\Delta S + \frac{\partial V}{\partial t}\Delta t + \frac{1}{2}\frac{\partial^2 V}{\partial S^2}\Delta S^2\]</div>
+<p>将 <a class="reference internal" href="#equation-eq-14">(7)</a> 式 代入到 <a class="reference internal" href="#equation-eq-15">(8)</a> 式中可得</p>
+<div class="math notranslate nohighlight" id="equation-eq-16">
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-16" title="Link to this equation"></a></span>\[\Delta V \approx \frac{\partial V}{\partial S}\Delta S + \Theta(1- \frac{\Delta S^2}{S^2\sigma^2\Delta t})\]</div>
+<p>通过 <a class="reference internal" href="#equation-eq-16">(9)</a> 式可以看到持有期权的盈亏来自与对冲的方向性敞口和 <span class="math notranslate nohighlight">\(\Theta\)</span> 收益，其中 <span class="math notranslate nohighlight">\(\Theta\)</span> 收益还取决于实际的日内方差 <span class="math notranslate nohighlight">\(\frac{\Delta S^2}{S^2}\)</span> 与 定价方差 <span class="math notranslate nohighlight">\(\sigma^2\Delta t\)</span> 之间的差异。</p>
+<p>接下来我们把指数期权的盈亏分解到其各个成分股上。</p>
+<div class="math notranslate nohighlight" id="equation-eq-17">
+<span class="eqno">(10)<a class="headerlink" href="#equation-eq-17" title="Link to this equation"></a></span>\[\Delta I = \sum_i w_i \Delta S_i\]</div>
+<p>定义</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}n_x = \frac{\Delta I}{I\sigma_x\sqrt{\Delta t}}\\
+n_i = \frac{\Delta S_i }{S_i\sigma_i\sqrt{\Delta t}}\end{split}\]</div>
+<p>那么</p>
+<div class="math notranslate nohighlight" id="equation-eq-18">
+<span class="eqno">(11)<a class="headerlink" href="#equation-eq-18" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
+ n_x^2 &amp;= \frac{\Delta I ^2}{I^2\sigma_x^2\Delta t}\\
+ &amp;=\frac{(\sum_i w_i \Delta S_i )^2}{I^2\sigma_x^2\Delta t}\\
+ &amp;= \frac{\sum_{i,j}w_i w_j \Delta S_i \Delta S_j}{I^2\sigma_x^2\Delta t}\\
+ &amp;= \sum_{i,j} \frac{\Delta S_i}{S_i \sigma_i \sqrt{\Delta t}}\frac{\Delta S_j}{S_j \sigma_j \sqrt{\Delta t}} \frac{w_i S_i w_jS_j\sigma_i\sigma_j}{I^2\sigma_x^2}\\
+ &amp;= \frac{1}{\sigma_x^2}\sum_{i,j} p_i p_j \sigma_i \sigma_j n_i n_j
+ \end{aligned}\end{split}\]</div>
+<p>将 <a class="reference internal" href="#equation-eq-18">(11)</a> 式代入到 <a class="reference internal" href="#equation-eq-16">(9)</a> 式中可以得到</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\Delta V &amp;= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta}{\sigma_x^2}(\sigma_x^2 - \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
+&amp;= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta}{\sigma_x^2}(\sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}- \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)
+\end{aligned}\end{split}\]</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hedge_pnl_factorization.html" class="btn btn-neutral float-left" title="对冲交易归因分析" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="otc_business.html" class="btn btn-neutral float-right" title="场外衍生品业务" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Liao Song.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+=====================
+分散度（相关性）交易
+=====================
+分散度交易的基本形式为
+
+1，买指数波动率卖成分股个股波动率，或者
+
+2，卖指数波动率买成分股个股波动率。
+
+通过维持投资组合在方向敞口上的中性（delta-neutral），交易指数与成分股波动率之间的差异来获得收益。
+
+指数与成分股波动率之间的关系
+------------------------------
+
+我们用 :math:`I` 表示指数，:math:`S_i` 表示成分股，:math:`w_i` 是指数中该成分股的 **份额** 占比，
+
+.. math:: 
+    I = \sum_i^N w_i S_i
+    :label: eq:8
+
+那么个股在指数中的 **市值** 权重，即
+
+.. math:: 
+    p_i = \frac{w_iS_i}{I}
+    :label: eq:9
+
+那么我们有
+
+.. math:: 
+    \begin{aligned}
+    \frac{dI}{I} &= \sum_i^N \frac{w_i dS_i}{I}\\
+    &= \sum_i^N \frac{w_i S_i}{I} \frac{dS_i}{S_i}\\
+    &= \sum_i^N p_i \frac{dS_i}{S_i}
+    \end{aligned}
+    :label: eq:10
+
+所以可以得到指数波动率与个股波动率之间的关系为
+
+.. math::
+    \begin{aligned} 
+    \sigma_x^2 &= \sum_{i,j}p_i p_j \sigma_i \sigma_j \rho_{i,j}\\
+    &= \sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}
+    \end{aligned}
+    :label: eq:11
+
+定义平均相关系数为
+
+.. math:: 
+    \bar{\rho} = \frac{\sigma_x^2 - \sum_{i} p_i^2 \sigma_i^2}{\sum_{i\neq j} p_i p_j \sigma_i \sigma_j}
+    :label: eq:12
+
+
+指数期权盯市盈亏分析
+---------------------
+
+回忆BSM PDE，
+
+.. math:: 
+    \frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2S^2\frac{\partial^2 V}{\partial S^2} + (r- q)S\frac{\partial V}{\partial S} - rV = 0
+    :label: eq:13
+
+在本节以下的讨论中，简单起见，我们假定 :math:`r = q = 0`， 并设 :math:`\Theta = \frac{\partial V}{\partial t}\Delta t`, 表示期权在 :math:`\Delta t` 时间里的价值变化。根据 :eq:`eq:13` 式，
+
+.. math:: 
+    \frac{\partial^2 V}{\partial S^2}= -2\Theta\frac{1}{\sigma^2S^2\Delta t} 
+    :label: eq:14
+
+
+期权持有者在 :math:`\Delta t` 时间的持仓盈亏为
+
+.. math:: 
+    \Delta V \approx \frac{\partial V}{\partial S}\Delta S + \frac{\partial V}{\partial t}\Delta t + \frac{1}{2}\frac{\partial^2 V}{\partial S^2}\Delta S^2
+    :label: eq:15
+
+将 :eq:`eq:14` 式 代入到 :eq:`eq:15` 式中可得
+
+.. math:: 
+    \Delta V \approx \frac{\partial V}{\partial S}\Delta S + \Theta(1- \frac{\Delta S^2}{S^2\sigma^2\Delta t})
+    :label: eq:16
+
+通过 :eq:`eq:16` 式可以看到持有期权的盈亏来自与对冲的方向性敞口和 :math:`\Theta` 收益，其中 :math:`\Theta` 收益还取决于实际的日内方差 :math:`\frac{\Delta S^2}{S^2}` 与 定价方差 :math:`\sigma^2\Delta t` 之间的差异。 
+
+接下来我们把指数期权的盈亏分解到其各个成分股上。
+
+.. math:: 
+    \Delta I = \sum_i w_i \Delta S_i 
+    :label: eq:17
+
+定义 
+
+.. math:: 
+    n_x = \frac{\Delta I}{I\sigma_x\sqrt{\Delta t}}\\
+    n_i = \frac{\Delta S_i }{S_i\sigma_i\sqrt{\Delta t}}
+
+
+那么
+
+.. math:: 
+    \begin{aligned}
+     n_x^2 &= \frac{\Delta I ^2}{I^2\sigma_x^2\Delta t}\\
+     &=\frac{(\sum_i w_i \Delta S_i )^2}{I^2\sigma_x^2\Delta t}\\
+     &= \frac{\sum_{i,j}w_i w_j \Delta S_i \Delta S_j}{I^2\sigma_x^2\Delta t}\\
+     &= \sum_{i,j} \frac{\Delta S_i}{S_i \sigma_i \sqrt{\Delta t}}\frac{\Delta S_j}{S_j \sigma_j \sqrt{\Delta t}} \frac{w_i S_i w_jS_j\sigma_i\sigma_j}{I^2\sigma_x^2}\\
+     &= \frac{1}{\sigma_x^2}\sum_{i,j} p_i p_j \sigma_i \sigma_j n_i n_j 
+     \end{aligned}
+    :label: eq:18
+
+
+将 :eq:`eq:18` 式代入到 :eq:`eq:16` 式中可以得到
+
+.. math:: 
+    \begin{aligned}
+    \Delta V_I &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta}{\sigma_x^2}(\sigma_x^2 - \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
+    &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta}{\sigma_x^2}(\sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}- \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
+    &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta}{\sigma_x^2}(\sum_{i}p_i^2\sigma_i^2(1-n_i^2) + \bar{\rho}\sum_{i\neq j}p_ip_j\sigma_i \sigma_j)
+    \end{aligned}
+
+
+
+
+
+
+
+
+
+

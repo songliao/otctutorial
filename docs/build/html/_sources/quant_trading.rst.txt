@@ -4,3 +4,4 @@
 
 .. toctree:: 
     hedge_pnl_factorization
+    dispersion_trade
