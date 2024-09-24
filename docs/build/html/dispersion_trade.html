@@ -54,7 +54,9 @@
 <li class="toctree-l2"><a class="reference internal" href="hedge_pnl_factorization.html">对冲交易归因分析</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">分散度（相关性）交易</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">指数与成分股波动率之间的关系</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">指数期权盯市盈亏分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">期权盈亏的另一种分解方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">指数期权的盈亏分解</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">指数与个股期权的组合盈亏</a></li>
 </ul>
 </li>
 </ul>
@@ -112,50 +114,72 @@
 <p>所以可以得到指数波动率与个股波动率之间的关系为</p>
 <div class="math notranslate nohighlight" id="equation-eq-11">
 <span class="eqno">(4)<a class="headerlink" href="#equation-eq-11" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
-\sigma_x^2 &amp;= \sum_{i,j}p_i p_j \sigma_i \sigma_j \rho_{i,j}\\
+\sigma_I^2 &amp;= \sum_{i,j}p_i p_j \sigma_i \sigma_j \rho_{i,j}\\
 &amp;= \sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}
 \end{aligned}\end{split}\]</div>
 <p>定义平均相关系数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-12">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eq-12" title="Link to this equation"></a></span>\[\bar{\rho} = \frac{\sigma_x^2 - \sum_{i} p_i^2 \sigma_i^2}{\sum_{i\neq j} p_i p_j \sigma_i \sigma_j}\]</div>
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-12" title="Link to this equation"></a></span>\[\bar{\rho} = \frac{\sigma_I^2 - \sum_{i} p_i^2 \sigma_i^2}{\sum_{i\neq j} p_i p_j \sigma_i \sigma_j}\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>注意到 <span class="math notranslate nohighlight">\((\sum_i p_i\sigma_i)^2 = \sum_i p_i^2\sigma_i^2 + \sum_{i\neq j}p_ip_j\sigma_i\sigma_j\)</span>, 所以平均相关系数可以用下式来计算</p>
+<div class="math notranslate nohighlight">
+\[\bar{\rho} = \frac{\sigma_I^2 - \sum_{i} p_i^2 \sigma_i^2}{(\sum_i p_i\sigma_i)^2-\sum_i p_i^2\sigma_i^2}\]</div>
+</div>
 </section>
 <section id="id3">
-<h2>指数期权盯市盈亏分析<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<h2>期权盈亏的另一种分解方式<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <p>回忆BSM PDE，</p>
 <div class="math notranslate nohighlight" id="equation-eq-13">
 <span class="eqno">(6)<a class="headerlink" href="#equation-eq-13" title="Link to this equation"></a></span>\[\frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2S^2\frac{\partial^2 V}{\partial S^2} + (r- q)S\frac{\partial V}{\partial S} - rV = 0\]</div>
-<p>在本节以下的讨论中，简单起见，我们假定 <span class="math notranslate nohighlight">\(r = q = 0\)</span>， 并设 <span class="math notranslate nohighlight">\(\Theta = \frac{\partial V}{\partial t}\Delta t\)</span>, 表示期权在 <span class="math notranslate nohighlight">\(\Delta t\)</span> 时间里的价值变化。根据 <a class="reference internal" href="#equation-eq-13">(6)</a> 式，</p>
+<p>在本节以下的讨论中，简单起见，我们假定 <span class="math notranslate nohighlight">\(r = q = 0\)</span>, 根据 <a class="reference internal" href="#equation-eq-13">(6)</a> 式，</p>
 <div class="math notranslate nohighlight" id="equation-eq-14">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eq-14" title="Link to this equation"></a></span>\[\frac{\partial^2 V}{\partial S^2}= -2\Theta\frac{1}{\sigma^2S^2\Delta t}\]</div>
-<p>期权持有者在 <span class="math notranslate nohighlight">\(\Delta t\)</span> 时间的持仓盈亏为</p>
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-14" title="Link to this equation"></a></span>\[\frac{\partial^2 V}{\partial S^2}= -2\frac{\partial V}{\partial t}\frac{1}{\sigma^2S^2}\]</div>
+<p>而期权持有者在 <span class="math notranslate nohighlight">\(\Delta t\)</span> 时间的持仓盈亏为</p>
 <div class="math notranslate nohighlight" id="equation-eq-15">
 <span class="eqno">(8)<a class="headerlink" href="#equation-eq-15" title="Link to this equation"></a></span>\[\Delta V \approx \frac{\partial V}{\partial S}\Delta S + \frac{\partial V}{\partial t}\Delta t + \frac{1}{2}\frac{\partial^2 V}{\partial S^2}\Delta S^2\]</div>
 <p>将 <a class="reference internal" href="#equation-eq-14">(7)</a> 式 代入到 <a class="reference internal" href="#equation-eq-15">(8)</a> 式中可得</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <div class="math notranslate nohighlight" id="equation-eq-16">
-<span class="eqno">(9)<a class="headerlink" href="#equation-eq-16" title="Link to this equation"></a></span>\[\Delta V \approx \frac{\partial V}{\partial S}\Delta S + \Theta(1- \frac{\Delta S^2}{S^2\sigma^2\Delta t})\]</div>
-<p>通过 <a class="reference internal" href="#equation-eq-16">(9)</a> 式可以看到持有期权的盈亏来自与对冲的方向性敞口和 <span class="math notranslate nohighlight">\(\Theta\)</span> 收益，其中 <span class="math notranslate nohighlight">\(\Theta\)</span> 收益还取决于实际的日内方差 <span class="math notranslate nohighlight">\(\frac{\Delta S^2}{S^2}\)</span> 与 定价方差 <span class="math notranslate nohighlight">\(\sigma^2\Delta t\)</span> 之间的差异。</p>
-<p>接下来我们把指数期权的盈亏分解到其各个成分股上。</p>
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-16" title="Link to this equation"></a></span>\[\Delta V \approx \frac{\partial V}{\partial S}\Delta S + \frac{\partial V}{\partial t}\Delta t(1- \frac{\Delta S^2}{S^2\sigma^2\Delta t})\]</div>
+</div>
+<p>通过 <a class="reference internal" href="#equation-eq-16">(9)</a> 式可以看到持有期权的盈亏来自Delta的方向性敞口和Theta盈亏。其中 Theta盈亏还取决于实际的日内方差 <span class="math notranslate nohighlight">\(\frac{\Delta S^2}{S^2}\)</span> 与 定价方差 <span class="math notranslate nohighlight">\(\sigma^2\Delta t\)</span> 之间的差异。</p>
+</section>
+<section id="id4">
+<h2>指数期权的盈亏分解<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>接下来我们把指数期权的盈亏分解到其各个成分股上。简洁起见，定义
+<span class="math notranslate nohighlight">\(\Delta_I = \frac{\partial V_I}{\partial I}\)</span> 为指数期权的Delta，<span class="math notranslate nohighlight">\(\Theta_I = \frac{\partial V_I}{\partial t}\)</span> 为指数期权的Theta，</p>
+<p>根据</p>
 <div class="math notranslate nohighlight" id="equation-eq-17">
 <span class="eqno">(10)<a class="headerlink" href="#equation-eq-17" title="Link to this equation"></a></span>\[\Delta I = \sum_i w_i \Delta S_i\]</div>
 <p>定义</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}n_x = \frac{\Delta I}{I\sigma_x\sqrt{\Delta t}}\\
+\[\begin{split}n_I = \frac{\Delta I}{I\sigma_I\sqrt{\Delta t}}\\
 n_i = \frac{\Delta S_i }{S_i\sigma_i\sqrt{\Delta t}}\end{split}\]</div>
 <p>那么</p>
 <div class="math notranslate nohighlight" id="equation-eq-18">
 <span class="eqno">(11)<a class="headerlink" href="#equation-eq-18" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
- n_x^2 &amp;= \frac{\Delta I ^2}{I^2\sigma_x^2\Delta t}\\
- &amp;=\frac{(\sum_i w_i \Delta S_i )^2}{I^2\sigma_x^2\Delta t}\\
- &amp;= \frac{\sum_{i,j}w_i w_j \Delta S_i \Delta S_j}{I^2\sigma_x^2\Delta t}\\
- &amp;= \sum_{i,j} \frac{\Delta S_i}{S_i \sigma_i \sqrt{\Delta t}}\frac{\Delta S_j}{S_j \sigma_j \sqrt{\Delta t}} \frac{w_i S_i w_jS_j\sigma_i\sigma_j}{I^2\sigma_x^2}\\
- &amp;= \frac{1}{\sigma_x^2}\sum_{i,j} p_i p_j \sigma_i \sigma_j n_i n_j
+ n_I^2 &amp;= \frac{\Delta I ^2}{I^2\sigma_I^2\Delta t}\\
+ &amp;=\frac{(\sum_i w_i \Delta S_i )^2}{I^2\sigma_I^2\Delta t}\\
+ &amp;= \frac{\sum_{i,j}w_i w_j \Delta S_i \Delta S_j}{I^2\sigma_I^2\Delta t}\\
+ &amp;= \sum_{i,j} \frac{\Delta S_i}{S_i \sigma_i \sqrt{\Delta t}}\frac{\Delta S_j}{S_j \sigma_j \sqrt{\Delta t}} \frac{w_i S_i w_jS_j\sigma_i\sigma_j}{I^2\sigma_I^2}\\
+ &amp;= \frac{1}{\sigma_I^2}\sum_{i,j} p_i p_j \sigma_i \sigma_j n_i n_j
  \end{aligned}\end{split}\]</div>
 <p>将 <a class="reference internal" href="#equation-eq-18">(11)</a> 式代入到 <a class="reference internal" href="#equation-eq-16">(9)</a> 式中可以得到</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-\Delta V &amp;= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta}{\sigma_x^2}(\sigma_x^2 - \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
-&amp;= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta}{\sigma_x^2}(\sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}- \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)
+<div class="math notranslate nohighlight" id="equation-eq-19">
+<span class="eqno">(12)<a class="headerlink" href="#equation-eq-19" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
+\Delta V_I &amp;= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sigma_I^2 - \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
+&amp;= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}- \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
+&amp;= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sum_{i}p_i^2\sigma_i^2(1-n_i^2) + \bar{\rho}\sum_{i\neq j}p_ip_j\sigma_i \sigma_j)
 \end{aligned}\end{split}\]</div>
+</section>
+<section id="id5">
+<h2>指数与个股期权的组合盈亏<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+\Delta V_I + \sum_i \Delta V_i &amp;= \sum_i (\Delta_I w_i  + \Delta_i)\Delta S_i + \sum_i (\frac{\Theta_I\Delta t}{\sigma_I^2}p_i^2\sigma_i^2 + \frac{\theta_i\Delta t}{\sigma_i^2})(1-n_i^2) + \bar{\rho}\frac{\Theta_I\Delta t}{\sigma_I^2}\sum_{i \neq j}p_ip_j\sigma_i\sigma_j
+\end{aligned}\]</div>
 </section>
 </section>
 

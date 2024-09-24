@@ -38,7 +38,7 @@
 
 .. math::
     \begin{aligned} 
-    \sigma_x^2 &= \sum_{i,j}p_i p_j \sigma_i \sigma_j \rho_{i,j}\\
+    \sigma_I^2 &= \sum_{i,j}p_i p_j \sigma_i \sigma_j \rho_{i,j}\\
     &= \sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}
     \end{aligned}
     :label: eq:11
@@ -46,12 +46,19 @@
 定义平均相关系数为
 
 .. math:: 
-    \bar{\rho} = \frac{\sigma_x^2 - \sum_{i} p_i^2 \sigma_i^2}{\sum_{i\neq j} p_i p_j \sigma_i \sigma_j}
+    \bar{\rho} = \frac{\sigma_I^2 - \sum_{i} p_i^2 \sigma_i^2}{\sum_{i\neq j} p_i p_j \sigma_i \sigma_j}
     :label: eq:12
 
 
-指数期权盯市盈亏分析
----------------------
+.. warning:: 
+    注意到 :math:`(\sum_i p_i\sigma_i)^2 = \sum_i p_i^2\sigma_i^2 + \sum_{i\neq j}p_ip_j\sigma_i\sigma_j`, 所以平均相关系数可以用下式来计算
+    
+    .. math::
+       \bar{\rho} = \frac{\sigma_I^2 - \sum_{i} p_i^2 \sigma_i^2}{(\sum_i p_i\sigma_i)^2-\sum_i p_i^2\sigma_i^2}
+
+
+期权盈亏的另一种分解方式
+------------------------------
 
 回忆BSM PDE，
 
@@ -59,14 +66,14 @@
     \frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2S^2\frac{\partial^2 V}{\partial S^2} + (r- q)S\frac{\partial V}{\partial S} - rV = 0
     :label: eq:13
 
-在本节以下的讨论中，简单起见，我们假定 :math:`r = q = 0`， 并设 :math:`\Theta = \frac{\partial V}{\partial t}\Delta t`, 表示期权在 :math:`\Delta t` 时间里的价值变化。根据 :eq:`eq:13` 式，
+在本节以下的讨论中，简单起见，我们假定 :math:`r = q = 0`, 根据 :eq:`eq:13` 式，
 
 .. math:: 
-    \frac{\partial^2 V}{\partial S^2}= -2\Theta\frac{1}{\sigma^2S^2\Delta t} 
+    \frac{\partial^2 V}{\partial S^2}= -2\frac{\partial V}{\partial t}\frac{1}{\sigma^2S^2} 
     :label: eq:14
 
 
-期权持有者在 :math:`\Delta t` 时间的持仓盈亏为
+而期权持有者在 :math:`\Delta t` 时间的持仓盈亏为
 
 .. math:: 
     \Delta V \approx \frac{\partial V}{\partial S}\Delta S + \frac{\partial V}{\partial t}\Delta t + \frac{1}{2}\frac{\partial^2 V}{\partial S^2}\Delta S^2
@@ -74,13 +81,23 @@
 
 将 :eq:`eq:14` 式 代入到 :eq:`eq:15` 式中可得
 
-.. math:: 
-    \Delta V \approx \frac{\partial V}{\partial S}\Delta S + \Theta(1- \frac{\Delta S^2}{S^2\sigma^2\Delta t})
-    :label: eq:16
+.. note:: 
+    
+    .. math:: 
+       \Delta V \approx \frac{\partial V}{\partial S}\Delta S + \frac{\partial V}{\partial t}\Delta t(1- \frac{\Delta S^2}{S^2\sigma^2\Delta t})
+       :label: eq:16
 
-通过 :eq:`eq:16` 式可以看到持有期权的盈亏来自与对冲的方向性敞口和 :math:`\Theta` 收益，其中 :math:`\Theta` 收益还取决于实际的日内方差 :math:`\frac{\Delta S^2}{S^2}` 与 定价方差 :math:`\sigma^2\Delta t` 之间的差异。 
+通过 :eq:`eq:16` 式可以看到持有期权的盈亏来自Delta的方向性敞口和Theta盈亏。其中 Theta盈亏还取决于实际的日内方差 :math:`\frac{\Delta S^2}{S^2}` 与 定价方差 :math:`\sigma^2\Delta t` 之间的差异。
 
-接下来我们把指数期权的盈亏分解到其各个成分股上。
+
+指数期权的盈亏分解
+-----------------------
+
+接下来我们把指数期权的盈亏分解到其各个成分股上。简洁起见，定义
+:math:`\Delta_I = \frac{\partial V_I}{\partial I}` 为指数期权的Delta，:math:`\Theta_I = \frac{\partial V_I}{\partial t}` 为指数期权的Theta，
+
+
+根据
 
 .. math:: 
     \Delta I = \sum_i w_i \Delta S_i 
@@ -89,7 +106,7 @@
 定义 
 
 .. math:: 
-    n_x = \frac{\Delta I}{I\sigma_x\sqrt{\Delta t}}\\
+    n_I = \frac{\Delta I}{I\sigma_I\sqrt{\Delta t}}\\
     n_i = \frac{\Delta S_i }{S_i\sigma_i\sqrt{\Delta t}}
 
 
@@ -97,11 +114,11 @@
 
 .. math:: 
     \begin{aligned}
-     n_x^2 &= \frac{\Delta I ^2}{I^2\sigma_x^2\Delta t}\\
-     &=\frac{(\sum_i w_i \Delta S_i )^2}{I^2\sigma_x^2\Delta t}\\
-     &= \frac{\sum_{i,j}w_i w_j \Delta S_i \Delta S_j}{I^2\sigma_x^2\Delta t}\\
-     &= \sum_{i,j} \frac{\Delta S_i}{S_i \sigma_i \sqrt{\Delta t}}\frac{\Delta S_j}{S_j \sigma_j \sqrt{\Delta t}} \frac{w_i S_i w_jS_j\sigma_i\sigma_j}{I^2\sigma_x^2}\\
-     &= \frac{1}{\sigma_x^2}\sum_{i,j} p_i p_j \sigma_i \sigma_j n_i n_j 
+     n_I^2 &= \frac{\Delta I ^2}{I^2\sigma_I^2\Delta t}\\
+     &=\frac{(\sum_i w_i \Delta S_i )^2}{I^2\sigma_I^2\Delta t}\\
+     &= \frac{\sum_{i,j}w_i w_j \Delta S_i \Delta S_j}{I^2\sigma_I^2\Delta t}\\
+     &= \sum_{i,j} \frac{\Delta S_i}{S_i \sigma_i \sqrt{\Delta t}}\frac{\Delta S_j}{S_j \sigma_j \sqrt{\Delta t}} \frac{w_i S_i w_jS_j\sigma_i\sigma_j}{I^2\sigma_I^2}\\
+     &= \frac{1}{\sigma_I^2}\sum_{i,j} p_i p_j \sigma_i \sigma_j n_i n_j 
      \end{aligned}
     :label: eq:18
 
@@ -110,8 +127,18 @@
 
 .. math:: 
     \begin{aligned}
-    \Delta V &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta}{\sigma_x^2}(\sigma_x^2 - \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
-    &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta}{\sigma_x^2}(\sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}- \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)
+    \Delta V_I &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sigma_I^2 - \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
+    &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}- \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
+    &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sum_{i}p_i^2\sigma_i^2(1-n_i^2) + \bar{\rho}\sum_{i\neq j}p_ip_j\sigma_i \sigma_j)
+    \end{aligned}
+    :label: eq:19
+
+指数与个股期权的组合盈亏
+-------------------------
+
+.. math:: 
+    \begin{aligned}
+    \Delta V_I + \sum_i \Delta V_i &= \sum_i (\Delta_I w_i  + \Delta_i)\Delta S_i + \sum_i (\frac{\Theta_I\Delta t}{\sigma_I^2}p_i^2\sigma_i^2 + \frac{\theta_i\Delta t}{\sigma_i^2})(1-n_i^2) + \bar{\rho}\frac{\Theta_I\Delta t}{\sigma_I^2}\sum_{i \neq j}p_ip_j\sigma_i\sigma_j
     \end{aligned}
 
 
