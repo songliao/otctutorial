@@ -129,17 +129,29 @@
     \begin{aligned}
     \Delta V_I &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sigma_I^2 - \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
     &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sum_{i}p_i^2\sigma_i^2 + \sum_{i\neq j} p_i p_j \sigma_i \sigma_j \rho_{i,j}- \sum_{i,j}p_ip_j\sigma_i\sigma_jn_in_j)\\
-    &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sum_{i}p_i^2\sigma_i^2(1-n_i^2) + \bar{\rho}\sum_{i\neq j}p_ip_j\sigma_i \sigma_j)
+    &= \Delta_I \sum_i w_i \Delta S_i + \frac{\Theta_I\Delta t}{\sigma_I^2}(\sum_{i}p_i^2\sigma_i^2(1-n_i^2) + \sum_{i\neq j}p_ip_j\sigma_i \sigma_j(\bar{\rho}-n_in_j))
     \end{aligned}
     :label: eq:19
 
-指数与个股期权的组合盈亏
--------------------------
+指数与成分股期权的组合盈亏
+-------------------------------
+
+根据 :eq:`eq:16` 式，各成分股期权的盈亏可以写成
+
+.. math:: 
+    \Delta V_i = \Delta_i \Delta S_i + \Theta_i \Delta t(1-n_i^2)
+    :label: eq:20
 
 .. math:: 
     \begin{aligned}
-    \Delta V_I + \sum_i \Delta V_i &= \sum_i (\Delta_I w_i  + \Delta_i)\Delta S_i + \sum_i (\frac{\Theta_I\Delta t}{\sigma_I^2}p_i^2\sigma_i^2 + \frac{\theta_i\Delta t}{\sigma_i^2})(1-n_i^2) + \bar{\rho}\frac{\Theta_I\Delta t}{\sigma_I^2}\sum_{i \neq j}p_ip_j\sigma_i\sigma_j
+    \Delta V_I + \sum_i \Delta V_i &= \sum_i (\Delta_I w_i  + \Delta_i)\Delta S_i + \sum_i (\frac{\Theta_I\Delta t}{\sigma_I^2}p_i^2\sigma_i^2 +\Theta_i\Delta t)(1-n_i^2) + \frac{\Theta_I\Delta t}{\sigma_I^2}\sum_{i \neq j}p_ip_j\sigma_i\sigma_j(\bar{\rho}-n_in_j)
     \end{aligned}
+    :label: eq:21
+
+从 :eq:`eq:21` 式可以看到，指数与其成分股期权组合的盈亏可以最终分解到指数各个成分股上的方向性盈亏，波动率盈亏以及由平均相关系数所关联的交叉项（非对角项）盈亏。假设个股与指数期权公允定价或者近似公允定价，那么累计波动率盈亏应近似为0（ :math:`1-n_i^2 \approx 0`），方向性近似满足各成分股期权的 :math:`\Delta_i \approx -w_i\Delta_I`,那么整个投资组合的方向性敞口也近似为0。投资组合的盈亏主要取决于交叉项，即
+:math:`\frac{\Theta_I\Delta t}{\sigma_I^2}\sum_{i \neq j}p_ip_j\sigma_i\sigma_j(\bar{\rho}-n_in_j)`。盈亏来自于定价平均相关系数 :math:`\bar{\rho}` 与实际相关系数 :math:`n_in_j` 之间的差异。当我们做多相关性时，即实际相关系数趋于走扩（:math:`\bar{\rho} - n_in_j` 为负），可以通过long指数Gamma，short成分股Gamma（ :math:`\Theta_I` 为负）实现套利，反之亦然。
+
+
 
 
 
