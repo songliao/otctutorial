@@ -152,6 +152,21 @@
 :math:`\frac{\Theta_I\Delta t}{\sigma_I^2}\sum_{i \neq j}p_ip_j\sigma_i\sigma_j(\bar{\rho}-n_in_j)`。盈亏来自于定价平均相关系数 :math:`\bar{\rho}` 与实际相关系数 :math:`n_in_j` 之间的差异。当我们做多相关性时，即实际相关系数趋于走扩（:math:`\bar{\rho} - n_in_j` 为负），可以通过long指数Gamma，short成分股Gamma（ :math:`\Theta_I` 为负）实现套利，反之亦然。
 
 
+根据 :eq:`eq:21` 式，我们可以对指数与成分股期权组合进行风险分析与盈亏归因，
+
+.. note:: 
+    **方向性**
+
+    风险因子，是分配到各个成分股上的方向性敞口，为
+
+    .. math::
+        (\Delta_I w_i  + \Delta_i)S_i
+
+    盈亏为
+
+    .. math::
+         (\Delta_I w_i  + \Delta_i)\Delta S_i
+
 
 
 

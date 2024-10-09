@@ -185,6 +185,17 @@ n_i = \frac{\Delta S_i }{S_i\sigma_i\sqrt{\Delta t}}\end{split}\]</div>
 \end{aligned}\]</div>
 <p>从 <a class="reference internal" href="#equation-eq-21">(14)</a> 式可以看到，指数与其成分股期权组合的盈亏可以最终分解到指数各个成分股上的方向性盈亏，波动率盈亏以及由平均相关系数所关联的交叉项（非对角项）盈亏。假设个股与指数期权公允定价或者近似公允定价，那么累计波动率盈亏应近似为0（ <span class="math notranslate nohighlight">\(1-n_i^2 \approx 0\)</span>），方向性近似满足各成分股期权的 <span class="math notranslate nohighlight">\(\Delta_i \approx -w_i\Delta_I\)</span>,那么整个投资组合的方向性敞口也近似为0。投资组合的盈亏主要取决于交叉项，即
 <span class="math notranslate nohighlight">\(\frac{\Theta_I\Delta t}{\sigma_I^2}\sum_{i \neq j}p_ip_j\sigma_i\sigma_j(\bar{\rho}-n_in_j)\)</span>。盈亏来自于定价平均相关系数 <span class="math notranslate nohighlight">\(\bar{\rho}\)</span> 与实际相关系数 <span class="math notranslate nohighlight">\(n_in_j\)</span> 之间的差异。当我们做多相关性时，即实际相关系数趋于走扩（<span class="math notranslate nohighlight">\(\bar{\rho} - n_in_j\)</span> 为负），可以通过long指数Gamma，short成分股Gamma（ <span class="math notranslate nohighlight">\(\Theta_I\)</span> 为负）实现套利，反之亦然。</p>
+<p>根据 <a class="reference internal" href="#equation-eq-21">(14)</a> 式，我们可以对指数与成分股期权组合进行风险分析与盈亏归因，</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>方向性</strong></p>
+<p>风险因子，是分配到各个成分股上的方向性敞口，为</p>
+<div class="math notranslate nohighlight">
+\[(\Delta_I w_i  + \Delta_i)S_i\]</div>
+<p>盈亏为</p>
+<div class="math notranslate nohighlight">
+\[(\Delta_I w_i  + \Delta_i)\Delta S_i\]</div>
+</div>
 </section>
 </section>
 
