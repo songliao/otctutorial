@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>关于希腊字母 &mdash; Quantitative Development Tutorial  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="_static/fonts.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx-design.min.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/design-tabs.js?v=f930bc37"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="对冲交易归因分析" href="hedge_pnl_factorization.html" />
+    <link rel="prev" title="对冲交易与风险控制" href="quant_trading.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Quantitative Development Tutorial
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="otc_theory.html">金融衍生品理论基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quant_dev.html">量化建模与开发实战</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quant_trading.html">对冲交易与风险控制</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">关于希腊字母</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">与挂钩标的价格相关的希腊字母</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#delta">Delta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gamma">Gamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#speed">Speed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hedge_pnl_factorization.html">对冲交易归因分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dispersion_trade.html">分散度（相关性）交易</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="otc_business.html">场外衍生品业务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考资料</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Quantitative Development Tutorial</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="quant_trading.html">对冲交易与风险控制</a></li>
+      <li class="breadcrumb-item active">关于希腊字母</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/about_greeks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>关于希腊字母<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>希腊字母是金融衍生品定价和风险管理中常用的术语。它们用于衡量期权价格对不同因素变化的敏感度。不同于一般的教科书中按阶数简单的罗列所有的希腊字母，
+我们按照在对冲与估值中的作用与意义对希腊字母进行分类介绍。</p>
+<p>在下文中，我们用 <span class="math notranslate nohighlight">\(V\)</span> 表示期权价格，<span class="math notranslate nohighlight">\(S\)</span> 表示挂钩标的价格，<span class="math notranslate nohighlight">\(F\)</span> 表示期货合约价格，<span class="math notranslate nohighlight">\(r\)</span> 表示无风险利率，<span class="math notranslate nohighlight">\(q\)</span> 表示分红率，<span class="math notranslate nohighlight">\(\sigma\)</span> 表示波动率，<span class="math notranslate nohighlight">\(T\)</span> 表示期限。</p>
+<section id="id2">
+<h2>与挂钩标的价格相关的希腊字母<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>与挂钩标的价格相关的希腊字母，在数学定义上是一系列期权价格关于挂钩标的价格的各阶导数或者偏导数。这一类希腊字母主要用于估算对冲仓位及其变化。</p>
+<section id="delta">
+<h3>Delta<a class="headerlink" href="#delta" title="Link to this heading"></a></h3>
+<div class="math notranslate nohighlight">
+\[\text{Delta} = \frac{\partial V}{\partial S}\]</div>
+<p>即期权价格对挂钩标的价格的一阶导。在动态对冲中，可以看作是 <strong>对冲持仓的数量</strong>。由此而衍生出的 <span class="math notranslate nohighlight">\(\text{Delta} \times S\)</span>, 即 <strong>Delta Cash</strong> 可以看作是 <strong>对冲持仓金额</strong>,也可以看作是该期权或者投资组合等效的瞬时市场 <strong>风险暴露</strong>。</p>
+</section>
+<section id="gamma">
+<h3>Gamma<a class="headerlink" href="#gamma" title="Link to this heading"></a></h3>
+<div class="math notranslate nohighlight">
+\[\text{Gamma} = \frac{\partial^2 V}{\partial S^2}\]</div>
+<p>即期权价格对挂钩标的价格的二阶导，即 <strong>对冲持仓的变化</strong>。由此而衍生出的 <span class="math notranslate nohighlight">\(1\%\times \text{Gamma} \times S^2\)</span>, 即 <strong>1% Gamma Cash</strong> 是标的价格变化1%所对应的对冲持仓金额的变化。</p>
+</section>
+<section id="speed">
+<h3>Speed<a class="headerlink" href="#speed" title="Link to this heading"></a></h3>
+<div class="math notranslate nohighlight">
+\[\text{Speed} = \frac{\partial^3 V}{\partial S^3}\]</div>
+<p>即期权价格对挂钩标的价格的三阶导，即 <strong>对冲持仓变化的变化</strong>。这是一个不太常见的希腊字母，主要用于针对期权或者期权组合 <strong>Delta</strong>, <strong>Gamma</strong> 变化较大的点位（非线性性较强）更精确的估算对冲仓位。</p>
+<p>一般情况下，根据上述导数，当挂钩标的价格从 <span class="math notranslate nohighlight">\(S_0\)</span> 变为 <span class="math notranslate nohighlight">\(S_1\)</span> 时 ( <span class="math notranslate nohighlight">\(|S_1 -S_0|\)</span> 相对较小 )，对冲持仓数量可以通过下式进行快速估算:</p>
+<div class="math notranslate nohighlight">
+\[\text{Delta}_{S_1} = \text{Delta}_{S_0} + \text{Gamma}_{S_0} \times (S_1 -S_0) + \frac{1}{2}\text{Speed}_{S_0} \times (S_1 - S_0)^2\]</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quant_trading.html" class="btn btn-neutral float-left" title="对冲交易与风险控制" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hedge_pnl_factorization.html" class="btn btn-neutral float-right" title="对冲交易归因分析" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Liao Song.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

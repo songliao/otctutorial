@@ -3,5 +3,6 @@
 ====================
 
 .. toctree:: 
+    about_greeks
     hedge_pnl_factorization
     dispersion_trade
