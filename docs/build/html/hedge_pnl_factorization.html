@@ -1,26 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>对冲交易归因分析 &mdash; Quantitative Development Tutorial  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-      <link rel="stylesheet" href="_static/fonts.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sphinx-design.min.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a6a68382" />
+      <link rel="stylesheet" type="text/css" href="_static/fonts.css?v=5583d106" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/design-tabs.js?v=f930bc37"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -171,14 +171,15 @@
 我们用 <span class="math notranslate nohighlight">\(\Delta^{A}_i\)</span> 持有期货合约 <span class="math notranslate nohighlight">\(F_i\)</span> 的实际持仓数量。接下来我们从 <a class="reference internal" href="#equation-eq-3">(3)</a> 式出发，结合各项金融含义与实际对冲交易，以按交易日离散的方式，构建对冲交易的盈亏分析框架。</p>
 <section id="id7">
 <h3>期权价值变动归因的离散化<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
-<a class="reference internal image-reference" href="_images/timeline.jpg"><img alt="timeline" src="_images/timeline.jpg" style="width: 400px;" /></a>
+<a class="reference internal image-reference" href="_images/timeline.jpg"><img alt="timeline" src="_images/timeline.jpg" style="width: 400px;" />
+</a>
 <p>归因分析是回溯分析，如上图所示，是假定我们站在 t 时刻分析 t - 1 到 t 的对冲交易情况。</p>
 <p>我们假定按日进行动态Delta对冲——即按日调整对冲持仓，对 <a class="reference internal" href="#equation-eq-3">(3)</a> 式采用前向差分离散化，并利用希腊字母表达，除上述定义的变量以外，另外设有</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 50%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\Delta t\)</span></p></td>
@@ -280,11 +281,11 @@
 </div>
 <p>其中 <span class="math notranslate nohighlight">\(L^S\)</span> 表示的是理论对冲持仓的保证金比例。上式表示的是实际持仓占资成本与理论占资成本之差。</p>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id9" role="note">
+<aside class="footnote brackets" id="id9" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
 <p>简化起见，<span class="math notranslate nohighlight">\(r, q, \sigma\)</span> 均设置为常数。</p>
 </aside>
-<aside class="footnote brackets" id="id10" role="note">
+<aside class="footnote brackets" id="id10" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">2</a><span class="fn-bracket">]</span></span>
 <p>详见我方中证专题研究文章关于股指期货对冲指数期权的BSM偏微分方程一节中的推导。</p>
 </aside>
