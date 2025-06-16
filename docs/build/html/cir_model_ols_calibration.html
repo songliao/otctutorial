@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用最小二乘法估计CIR模型参数 &mdash; Quantitative Development Tutorial  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a6a68382" />
+      <link rel="stylesheet" type="text/css" href="_static/fonts.css?v=5583d106" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Quantitative Development Tutorial
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="otc_theory.html">金融衍生品理论基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quant_dev.html">量化建模与开发实战</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quant_trading.html">对冲交易与风险控制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="otc_business.html">场外衍生品业务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考资料</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Quantitative Development Tutorial</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">用最小二乘法估计CIR模型参数</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cir_model_ols_calibration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cir">
+<h1>用最小二乘法估计CIR模型参数<a class="headerlink" href="#cir" title="Link to this heading"></a></h1>
+<p>Cox–Ingersoll–Ross 模型的离散形式为：</p>
+<div class="math notranslate nohighlight" id="equation-eq-ols-1">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-ols-1" title="Link to this equation"></a></span>\[X_{i+1} - X_i = \lambda(\mu - X_i)\Delta t + \sigma \sqrt{X_i \Delta t}\epsilon_i\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\epsilon_i \in N(0, 1)\)</span> 是标准正态分布随机数。</p>
+<p>最小二乘法估计模型参数即求解下列最小值问题：</p>
+<div class="math notranslate nohighlight" id="equation-eq-ols-2">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-ols-2" title="Link to this equation"></a></span>\[\min_{\lambda, \mu} \sum_{i=1}^{N-1} (\frac{X_{i+1} - X_i - \lambda(\mu - X_i)\Delta t}{\sqrt{X_i}})^2\]</div>
+<p>而 <span class="math notranslate nohighlight">\(\sigma\)</span> 可以通过残差的标准差来估计.</p>
+<p>目标函数</p>
+<div class="math notranslate nohighlight" id="equation-eq-ols-3">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-ols-3" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
+f &amp;= \sum_{i=1}^{N-1} (\frac{X_{i+1} - X_i - \lambda(\mu - X_i)\Delta t}{\sqrt{X_i}})^2 \\
+&amp;= \sum_{i=1}^{N-1} (\frac{X_{i+1}}{\sqrt{X_i}} - \lambda \mu \Delta t \frac{1}{\sqrt{X_i}} - (1- \lambda \Delta t)\sqrt{X_i})^2 \\
+&amp;=\sum_{i=1}^{N-1} (\frac{X_{i+1}}{\sqrt{X_i}} - a \frac{1}{\sqrt{X_i}} - b\sqrt{X_i})^2
+\end{aligned}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(a = \lambda \mu \Delta t\)</span>, <span class="math notranslate nohighlight">\(b = 1- \lambda \Delta t\)</span>.</p>
+<p>对目标函数 <span class="math notranslate nohighlight">\(f\)</span> 分别对 <span class="math notranslate nohighlight">\(a\)</span> 和 <span class="math notranslate nohighlight">\(b\)</span> 求偏导，并令其为零：</p>
+<div class="math notranslate nohighlight" id="equation-eq-ols-4">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq-ols-4" title="Link to this equation"></a></span>\[\frac{\partial f}{\partial a} = -2\sum_{i=1}^{N-1} (\frac{X_{i+1}}{\sqrt{X_i}} - a \frac{1}{\sqrt{X_i}} - b\sqrt{X_i})\frac{1}{\sqrt{X_i}} = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-ols-5">
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-ols-5" title="Link to this equation"></a></span>\[\frac{\partial f}{\partial b} = -2\sum_{i=1}^{N-1} (\frac{X_{i+1}}{\sqrt{X_i}} - a \frac{1}{\sqrt{X_i}} - b\sqrt{X_i})\sqrt{X_i} = 0\]</div>
+<p>由式 <a class="reference internal" href="#equation-eq-ols-5">(5)</a> 可得：</p>
+<div class="math notranslate nohighlight" id="equation-eq-ols-6">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-ols-6" title="Link to this equation"></a></span>\[a = \frac{\sum_{i=1}^{N-1}X_{i+1}-b\sum_{i=1}^{N-1}X_i}{N-1}\]</div>
+<p>再把式 <a class="reference internal" href="#equation-eq-ols-6">(6)</a> 代入式 <a class="reference internal" href="#equation-eq-ols-4">(4)</a>，可得：</p>
+<div class="math notranslate nohighlight" id="equation-eq-ols-7">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-ols-7" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
+\sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i} - a\sum_{i=1}^{N-1}\frac{1}{X_{i}} - b(N-1) &amp;= 0\\
+\sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i} - (\frac{\sum_{i=1}^{N-1}X_{i+1}-b\sum_{i=1}^{N-1}X_i}{N-1})\sum_{i=1}^{N-1}\frac{1}{X_{i}} - b(N-1) &amp;= 0 \\
+(N-1)\sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i} - \sum_{i=1}^{N-1}X_{i+1}\sum_{i=1}^{N-1}\frac{1}{X_{i}} + b\sum_{i=1}^{N-1}X_i\sum_{i=1}^{N-1}\frac{1}{X_{i}} - b(N-1)^2 &amp;= 0\\
+\end{aligned}\end{split}\]</div>
+<p>于是可以解得</p>
+<div class="math notranslate nohighlight" id="equation-eq-ols-8">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-ols-8" title="Link to this equation"></a></span>\[b = \frac{\sum_{i=1}^{N-1}X_{i+1}\sum_{i=1}^{N-1}\frac{1}{X_{i}} - (N-1)\sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i}}{\sum_{i=1}^{N-1}X_i\sum_{i=1}^{N-1}\frac{1}{X_{i}} - (N-1)^2}\]</div>
+<p>再将 <a class="reference internal" href="#equation-eq-ols-8">(8)</a> 代入式 <a class="reference internal" href="#equation-eq-ols-6">(6)</a>，可得</p>
+<div class="math notranslate nohighlight" id="equation-eq-ols-9">
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-ols-9" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
+a &amp;= \frac{\sum_{i=1}^{N-1}X_{i+1}-\frac{\sum_{i=1}^{N-1}X_{i+1}\sum_{i=1}^{N-1}\frac{1}{X_{i}} - (N-1)\sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i}}{\sum_{i=1}^{N-1}X_i\sum_{i=1}^{N-1}\frac{1}{X_{i+1}} - (N-1)^2}\sum_{i=1}^{N-1}X_i}{N-1}\\
+   &amp;= \frac{1}{N-1}(\sum_{i=1}^{N-1}{X_{i+1}} + \frac{\sum_{i=1}^{N-1} X_{i+1}\sum_{i=1}^{N-1}{\frac{1}{X_i}}\sum_{i=1}^{N-1}X_i - (N-1)\sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i}\sum_{i=1}^{N-1} X_i}{(N-1)^2- \sum_{i=1}^{N-1} X_i\sum_{i=1}^{N-1}{\frac{1}{X_i}}})\\
+   &amp; = \frac{(N-1) \sum_{i=1}^{N-1}{X_{i+1}} - \sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i}\sum_{i=1}^{N-1} X_i}{(N-1)^2- \sum_{i=1}^{N-1} X_i\sum_{i=1}^{N-1}{\frac{1}{X_i}}}
+\end{aligned}\end{split}\]</div>
+<p>于是</p>
+<div class="math notranslate nohighlight" id="equation-eq-ols-10">
+<span class="eqno">(10)<a class="headerlink" href="#equation-eq-ols-10" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
+\lambda &amp;= \frac{1-b}{\Delta t} \\
+ &amp;= \frac{(N-1)^2 -\sum_{i=1}^{N-1}X_i\sum_{i=1}^{N-1}\frac{1}{X_{i}} + \sum_{i=1}^{N-1}X_{i+1}\sum_{i=1}^{N-1}\frac{1}{X_{i}} - (N-1)\sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i} }{((N-1)^2- \sum_{i=1}^{N-1}X_i\sum_{i=1}^{N-1}\frac{1}{X_{i}})\Delta t} \\
+\end{aligned}\end{split}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-ols-11">
+<span class="eqno">(11)<a class="headerlink" href="#equation-eq-ols-11" title="Link to this equation"></a></span>\[\begin{split}\begin{aligned}
+\mu &amp;= \frac{a}{\lambda \Delta t} \\
+ &amp;= \frac{(N-1) \sum_{i=1}^{N-1}{X_{i+1}} - \sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i}\sum_{i=1}^{N-1} X_i}{(N-1)^2 -\sum_{i=1}^{N-1}X_i\sum_{i=1}^{N-1}\frac{1}{X_{i}} + \sum_{i=1}^{N-1}X_{i+1}\sum_{i=1}^{N-1}\frac{1}{X_{i}} - (N-1)\sum_{i=1}^{N-1} \frac{X_{i+1}}{X_i}}
+ \end{aligned}\end{split}\]</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Liao Song.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

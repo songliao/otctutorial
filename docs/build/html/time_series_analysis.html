@@ -20,11 +20,13 @@
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/design-tabs.js?v=f930bc37"></script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="对冲交易与风险控制" href="quant_trading.html" />
+    <link rel="next" title="Vasicek 模型" href="vasicek_model.html" />
     <link rel="prev" title="量化建模与开发实战" href="quant_dev.html" /> 
 </head>
 
@@ -51,8 +53,8 @@
 <li class="toctree-l1"><a class="reference internal" href="otc_theory.html">金融衍生品理论基础</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="quant_dev.html">量化建模与开发实战</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">时间序列分析</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ornstein-uhlenbeck">Ornstein-Uhlenbeck 模型</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vasicek_model.html">Vasicek 模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cir_model.html">Cox–Ingersoll–Ross 模型</a></li>
 </ul>
 </li>
 </ul>
@@ -89,42 +91,21 @@
              
   <section id="id1">
 <h1>时间序列分析<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
-<section id="ornstein-uhlenbeck">
-<h2>Ornstein-Uhlenbeck 模型<a class="headerlink" href="#ornstein-uhlenbeck" title="Link to this heading"></a></h2>
-<p>具有均值回归特性的随机时间序列，可以用Ornstein-Uhlenbeck随机偏微分方程来描述：</p>
-<div class="math notranslate nohighlight" id="equation-eq-tsa-1">
-<span class="eqno">(1)<a class="headerlink" href="#equation-eq-tsa-1" title="Link to this equation"></a></span>\[dX_t = \lambda(\mu - X_t){dt} + \sigma dW_t\]</div>
-<p>其中，<span class="math notranslate nohighlight">\(\lambda\)</span> 是均值回归速度，<span class="math notranslate nohighlight">\(\mu\)</span> 是长期均值，<span class="math notranslate nohighlight">\(\sigma\)</span> 是波动率，<span class="math notranslate nohighlight">\(dW_t\)</span> 是标准布朗运动。</p>
-<p>上述偏微分方程的解是：</p>
-<div class="math notranslate nohighlight" id="equation-eq-tsa-2">
-<span class="eqno">(2)<a class="headerlink" href="#equation-eq-tsa-2" title="Link to this equation"></a></span>\[X_t = X_0 e^{-\lambda t} + \mu(1 - e^{-\lambda t}) + \sqrt{\frac{\sigma^2}{2\lambda}(1-e^{-2\lambda t})}\epsilon\]</div>
-<p>其中，<span class="math notranslate nohighlight">\(\epsilon \in N(0, 1)\)</span> 是标准正态分布随机数。</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>我们可以用上式来模拟具有均值回归特性的时间序列数据。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vasicek_model.html">Vasicek 模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vasicek_model.html#id1">模型参数拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vasicek_model.html#id3">参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cir_model.html">Cox–Ingersoll–Ross 模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cir_model.html#id1">模型参数拟合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cir_model.html#id2">初始值问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cir_model.html#id3">数据分析示例</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<p>我们可以根据 <a class="reference internal" href="#equation-eq-tsa-2">(2)</a> 的形式，对给定的具有均值回归特性的时间序列，采用最小二次元法拟合得到相关模型参数 <span class="math notranslate nohighlight">\(\lambda\)</span>, <span class="math notranslate nohighlight">\(\mu\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span>。</p>
-<p>对于以 <span class="math notranslate nohighlight">\(\Delta t\)</span> 等时间间隔采样的时间序列 <span class="math notranslate nohighlight">\(X_i\)</span>, 先通过线性拟合得到，</p>
-<div class="math notranslate nohighlight" id="equation-eq-tsa-3">
-<span class="eqno">(3)<a class="headerlink" href="#equation-eq-tsa-3" title="Link to this equation"></a></span>\[X_{i+1} = a X_i +b + \epsilon_i\]</div>
-<p>那么，对比 <a class="reference internal" href="#equation-eq-tsa-2">(2)</a> 和 <a class="reference internal" href="#equation-eq-tsa-3">(3)</a>，我们有</p>
-<div class="math notranslate nohighlight" id="equation-eq-tsa-4">
-<span class="eqno">(4)<a class="headerlink" href="#equation-eq-tsa-4" title="Link to this equation"></a></span>\[a = e^{-\lambda \Delta t}, \quad b = \mu(1 - e^{-\lambda \Delta t}), \quad \sigma(\epsilon) = \sqrt{\frac{\sigma^2}{2\lambda}(1-e^{-2\lambda \Delta t})}\]</div>
-<p>或者</p>
-<div class="math notranslate nohighlight" id="equation-eq-tsa-5">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eq-tsa-5" title="Link to this equation"></a></span>\[\lambda = -\frac{\ln a}{\Delta t}, \quad \mu = \frac{b}{1 - a}, \quad \sigma = \sigma(\epsilon)\sqrt{\frac{-2\ln{a}}{{\Delta t(1-a^2)}}}\]</div>
-<p>其中，<span class="math notranslate nohighlight">\(\sigma(\epsilon)\)</span> 是式 <a class="reference internal" href="#equation-eq-tsa-3">(3)</a> 中残差的标准差。</p>
-<p>本节主要参考 <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> .</p>
-</section>
-<section id="id3">
-<h2>参考文献<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id4" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
-<p>Wikipeida: Vasicek_model <a class="reference external" href="https://en.wikipedia.org/wiki/Vasicek_model">https://en.wikipedia.org/wiki/Vasicek_model</a></p>
-</aside>
-</aside>
-</section>
 </section>
 
 
@@ -132,7 +113,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="quant_dev.html" class="btn btn-neutral float-left" title="量化建模与开发实战" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="quant_trading.html" class="btn btn-neutral float-right" title="对冲交易与风险控制" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="vasicek_model.html" class="btn btn-neutral float-right" title="Vasicek 模型" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

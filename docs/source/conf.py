@@ -13,7 +13,7 @@ author = 'Liao Song'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx_design']
+extensions = ['sphinx_design', 'nbsphinx']
 
 templates_path = ['_templates']
 exclude_patterns = []
