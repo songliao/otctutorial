@@ -6,8 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Quantitative Development Tutorial'
-copyright = '2024, Liao Song'
+project = 'Traval with Financial Derivatives'
+copyright = '2025, Liao Song'
 author = 'Liao Song'
 
 # -- General configuration ---------------------------------------------------
