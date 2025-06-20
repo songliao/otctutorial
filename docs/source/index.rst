@@ -6,6 +6,9 @@
 Travel with Financial Derivatives
 ====================================
 
+.. warning:: 
+    This documentation is a work in progress and is not yet complete. It is intended for internal use only.
+
 .. toctree::
    :maxdepth: 1
    :hidden:
