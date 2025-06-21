@@ -7,10 +7,10 @@ Travel with Financial Derivatives
 ====================================
 
 .. warning:: 
-    This documentation is a work in progress and is not yet complete. It is intended for internal use only.
+    :octicon:`alert-fill` This documentation is a work in progress and is not yet complete. It is intended for internal use only.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :hidden:
 
    otc_theory
@@ -49,7 +49,7 @@ About this project
     .. grid-item-card::
         :text-align: center
 
-        **量化建模与开发实战**
+        **Quant Dev**
         
         本部分侧重量化开发实践。在理解金融模型的基础上，掌握蒙特卡洛模拟，有限差分法等算法，通过 Python, C++, Excel等编程语言和软件，实现金融模型的开发与应用。
 
@@ -61,7 +61,7 @@ About this project
             :color: secondary
             :click-parent:
 
-            量化建模与开发实战
+            Quant Dev
 
     .. grid-item-card::
         :text-align: center

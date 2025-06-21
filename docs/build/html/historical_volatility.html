@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; Traval with Financial Derivatives  documentation</title>
+  <title>关于历史波动率 &mdash; Traval with Financial Derivatives  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a6a68382" />
@@ -20,8 +21,10 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
 
@@ -46,7 +49,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="otc_theory.html">金融衍生品理论基础</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quant_dev.html">Quant Dev</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quant_dev.html">量化建模与开发实战</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quant_trading.html">对冲交易与风险控制</a></li>
 <li class="toctree-l1"><a class="reference internal" href="otc_business.html">场外衍生品业务</a></li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">参考资料</a></li>
@@ -66,8 +69,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Index</li>
+      <li class="breadcrumb-item active">关于历史波动率</li>
       <li class="wy-breadcrumbs-aside">
+            <a href="_sources/historical_volatility.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -75,12 +79,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- 
+  <section id="id1">
+<h1>关于历史波动率<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="id2">
+<h2>简单隔日历史波动率计算方法<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>标的价格收盘价时序数据 <span class="math notranslate nohighlight">\(P_i\)</span>, <span class="math notranslate nohighlight">\(i=0,1,...,N\)</span>， 其时间间隔为 <span class="math notranslate nohighlight">\(\Delta t\)</span>，一般取每交易日收盘价，<span class="math notranslate nohighlight">\(\Delta t\)</span> 即 1/年交易天数，在本例中我们取 <span class="math notranslate nohighlight">\(\Delta t= \frac{1}{242}\)</span> .</p>
+<p>对数收益率 <span class="math notranslate nohighlight">\(r_i = \ln\frac{P_i}{P_{i-1}}\)</span>, <span class="math notranslate nohighlight">\(i = 1,..., N\)</span></p>
+<p>以 <span class="math notranslate nohighlight">\(m\)</span> 日窗口计算历史波动率(方差)序列</p>
+<div class="math notranslate nohighlight">
+\[\sigma_i^2 =\frac{\Delta t}{m} \sum_{j=m(i-1)+1}^{j=mi}r_j^2
+\label{eq:hv_1}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(i=1,..., \lfloor N/m \rfloor\)</span>, <span class="math notranslate nohighlight">\(\lfloor N/m \rfloor\)</span> 表示不超过 <span class="math notranslate nohighlight">\(N/m\)</span> 的整数。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>我们用方差作为我们要研究的随机样本序列，一个显而易见的原因是方差是波动率的平方，平方后，可以有效平抑极端值对均值等统计指标的影响，
+<span class="math notranslate nohighlight">\(\sqrt{a^2 + b^2} &lt; a + b, \forall a,b &gt;0\)</span></p>
 </div>
+</section>
+</section>
 
 
            </div>

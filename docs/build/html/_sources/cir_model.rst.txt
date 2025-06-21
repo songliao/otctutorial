@@ -89,5 +89,7 @@ CIR模型（Cox-Ingersoll-Ross模型）是Vasicek模型的一个扩展，适用�
 
 数据分析示例
 ---------------------------------
-指数的涨跌幅的方差 :math:`v` 可能是一个CIR过程。
+指数的涨跌幅的方差 :math:`v=\sigma^2` 可能是一个CIR过程。
+
+关于历史波动率的计算，参考 :doc:`historical_volatility`
 

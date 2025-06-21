@@ -53,4 +53,4 @@ Vasicek模型用以下随机微分方程来表述随机变量 :math:`X_t` 的演
 
 参考文献
 -----------
-.. [1] Wikipeida: Vasicek_model https://en.wikipedia.org/wiki/Vasicek_model
+.. [1] Wikipeida: Vasicek model https://en.wikipedia.org/wiki/Vasicek_model
