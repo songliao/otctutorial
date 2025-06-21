@@ -11,7 +11,7 @@
 以 :math:`m` 日窗口计算历史波动率(方差)序列
 
 .. math:: 
-    \sigma_i^2 =\frac{\Delta t}{m} \sum_{j=m(i-1)+1}^{j=mi}r_j^2
+    \sigma_i^2 =\frac{1}{m \Delta t} \sum_{j=m(i-1)+1}^{j=mi}r_j^2
     \label{eq:hv_1}
 
 

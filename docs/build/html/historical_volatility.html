@@ -25,7 +25,9 @@
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="对冲交易与风险控制" href="quant_trading.html" />
+    <link rel="prev" title="用最小二乘法估计CIR模型参数" href="cir_model_ols_calibration.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,9 +49,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="otc_theory.html">金融衍生品理论基础</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quant_dev.html">量化建模与开发实战</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quant_dev.html">Quant Dev</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="time_series_analysis.html">时间序列分析</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="quant_dev_appendices.html">Appendices</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cir_model_ols_calibration.html">用最小二乘法估计CIR模型参数</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">关于历史波动率</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">简单隔日历史波动率计算方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="quant_trading.html">对冲交易与风险控制</a></li>
 <li class="toctree-l1"><a class="reference internal" href="otc_business.html">场外衍生品业务</a></li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">参考资料</a></li>
@@ -69,6 +82,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="quant_dev.html">Quant Dev</a></li>
+          <li class="breadcrumb-item"><a href="quant_dev_appendices.html">Appendices</a></li>
       <li class="breadcrumb-item active">关于历史波动率</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/historical_volatility.rst.txt" rel="nofollow"> View page source</a>
@@ -87,7 +102,7 @@
 <p>对数收益率 <span class="math notranslate nohighlight">\(r_i = \ln\frac{P_i}{P_{i-1}}\)</span>, <span class="math notranslate nohighlight">\(i = 1,..., N\)</span></p>
 <p>以 <span class="math notranslate nohighlight">\(m\)</span> 日窗口计算历史波动率(方差)序列</p>
 <div class="math notranslate nohighlight">
-\[\sigma_i^2 =\frac{\Delta t}{m} \sum_{j=m(i-1)+1}^{j=mi}r_j^2
+\[\sigma_i^2 =\frac{1}{m \Delta t} \sum_{j=m(i-1)+1}^{j=mi}r_j^2
 \label{eq:hv_1}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(i=1,..., \lfloor N/m \rfloor\)</span>, <span class="math notranslate nohighlight">\(\lfloor N/m \rfloor\)</span> 表示不超过 <span class="math notranslate nohighlight">\(N/m\)</span> 的整数。</p>
 <div class="admonition tip">
@@ -101,7 +116,10 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cir_model_ols_calibration.html" class="btn btn-neutral float-left" title="用最小二乘法估计CIR模型参数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quant_trading.html" class="btn btn-neutral float-right" title="对冲交易与风险控制" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
