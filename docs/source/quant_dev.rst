@@ -9,6 +9,7 @@ Quant Dev
     :titlesonly:
     
     time_series_analysis
+    finite_difference_method
     quant_dev_appendices
     
 
