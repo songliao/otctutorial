@@ -59,7 +59,7 @@ or in the matrix multiplication form:
                           .\\
                           .\\
                            f_{i+1, M-1}\\
-                          f_{i,M}\\
+                          f_{i+1,M}\\
             \end{matrix}
     \right)
 

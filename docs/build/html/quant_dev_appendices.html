@@ -21,13 +21,11 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/design-tabs.js?v=f930bc37"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="用最小二乘法估计CIR模型参数" href="cir_model_ols_calibration.html" />
-    <link rel="prev" title="Cox–Ingersoll–Ross 模型" href="cir_model.html" /> 
+    <link rel="prev" title="Finite Difference Method" href="finite_difference_method.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -53,9 +51,10 @@
 <li class="toctree-l1"><a class="reference internal" href="otc_theory.html">金融衍生品理论基础</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="quant_dev.html">Quant Dev</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="time_series_analysis.html">时间序列分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="finite_difference_method.html">Finite Difference Method</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Appendices</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cir_model_ols_calibration.html">用最小二乘法估计CIR模型参数</a></li>
-<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html">关于历史波动率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html">关于历史波动率与偏度的计量方法</a></li>
 </ul>
 </li>
 </ul>
@@ -95,8 +94,26 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="cir_model_ols_calibration.html">用最小二乘法估计CIR模型参数</a></li>
-<li class="toctree-l1"><a class="reference internal" href="historical_volatility.html">关于历史波动率</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="historical_volatility.html#id2">简单隔日历史波动率计算方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="historical_volatility.html">关于历史波动率与偏度的计量方法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="historical_volatility.html#historical-volatility-hv">1. 历史波动率（Historical Volatility, HV）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html#id2">定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html#id3">计算要点</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="historical_volatility.html#id4">2. 窗口年化波动率（重叠/不重叠）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html#id5">关键符号（节内）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html#id6">通用年化波动率公式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html#id7">重叠滚动窗口波动率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html#id8">不重叠隔日波动率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html#id9">窗口数量</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="historical_volatility.html#up-volatility-down-volatility">3. 上行波动率与下行波动率（Up Volatility &amp; Down Volatility）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="historical_volatility.html#skewness">4. 偏度（Skewness）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html#id10">5. 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_volatility.html#id11">附录：符号说明</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -107,7 +124,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="cir_model.html" class="btn btn-neutral float-left" title="Cox–Ingersoll–Ross 模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="finite_difference_method.html" class="btn btn-neutral float-left" title="Finite Difference Method" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="cir_model_ols_calibration.html" class="btn btn-neutral float-right" title="用最小二乘法估计CIR模型参数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
