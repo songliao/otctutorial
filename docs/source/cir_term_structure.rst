@@ -30,7 +30,11 @@ CIR 的条件期望（conditional expectation，即方差的一阶矩）有闭�
 
 .. note::
 
-    这是 :math:`E[v_t]`（方差过程的期望值），**不是** :math:`\text{Var}[v_t]`（方差过程自身的条件方差）。两者的区别：
+    这是 :math:`E[v_t]`\ （方差过程的期望值），不同于 :math:`\text{Var}[v_t]`\ （方差过程自身的条件方差）。
+
+    前者用于期限结构——关心方差往哪走；后者描述这个走向有多不确定。
+
+    对比：
 
     .. list-table::
        :header-rows: 1
@@ -44,8 +48,6 @@ CIR 的条件期望（conditional expectation，即方差的一阶矩）有闭�
        * - :math:`\text{Var}[v_t \mid v_0]`
          - 未来方差的离散程度
          - :math:`v_0\frac{\sigma^2}{\lambda}(e^{-\lambda t}-e^{-2\lambda t}) + \frac{\mu\sigma^2}{2\lambda}(1-e^{-\lambda t})^2`
-
-    前者（Wikipedia 的条件均值）用于期限结构——我们关心方差往哪走；后者（Wikipedia 的条件方差）描述这个走向有多不确定。
 
 这是从 :math:`v_0` 出发、以速率 :math:`\lambda` 指数衰减到 :math:`\mu` 的曲线。
 
