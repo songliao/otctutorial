@@ -153,7 +153,7 @@
 那么这一时间段——一个交易日——从上一交易日的日终到本交易日终的对冲交易盈亏为
 
 .. math:: 
-    \textbf{P&L} = \sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   -  L^A (\sum_i^N \Delta_i^A F_i) r\Delta t -  \Delta V
+    	extbf{PNL} = \sum_i^N \Delta^A_i \Delta F_i + Mr\Delta t   -  L^A (\sum_i^N \Delta_i^A F_i) r\Delta t -  \Delta V
 
 接下来，我们就可以根据各分项的金融含义对 P&L 进行拆分。
 
