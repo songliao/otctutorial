@@ -14,6 +14,7 @@ Travel with Financial Derivatives
    :hidden:
 
    otc_theory
+   interactive_demo
    quant_dev
    quant_trading
    otc_business
